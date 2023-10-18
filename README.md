@@ -5,5 +5,5 @@ C'est une Application web Python qui utilise FastAPI et Jinja2 pour créer une i
 
 La WEBAPP est composé de deux routes : accueil et annexe.
 
-<img src="templates/img/home.png">
-<img src="templates/img/annexe.png">
+<img src="templates/img/route.png">
+
