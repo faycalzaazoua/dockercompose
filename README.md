@@ -2,8 +2,3 @@ C'est une Application web Python qui utilise FastAPI et Jinja2 pour créer une i
 
 <img src="templates/img/architecture.jpg">
 
-
-La WEBAPP est composé de deux routes : accueil et annexe.
-
-<img src="templates/img/route.png">
-
