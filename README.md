@@ -4,7 +4,7 @@ C'est une Application web Python qui utilise FastAPI et Jinja2 pour créer une i
 # Architecture
 <img src="templates/img/architecture.jpg">
 
-# Composant de base
+# Détail projet
 Front (2 routes : Accueil, Annexe)
 <img src="templates/img/route.png">
 
@@ -22,4 +22,6 @@ https://hub.docker.com/repository/docker/harcus78/microservice/general
 Build sans erreur : 
 <img src="templates/img/build.png">
 
+Fichier de test bash : 
+test/test_container.sh
 
