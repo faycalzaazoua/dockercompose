@@ -28,6 +28,12 @@
                     <!-- <h3 class="mb-5" style = "color:grey"><em>Code by Faycal</em></h3> -->
                     <h2 class="mb-1" style = "color:indianred">ANNEXE</h2>
                     <br>
+                    <h1>Données dans le tableau :</h1>
+                    <ul>
+                        {% for row in datas %}
+                            <li>{{ row }}</li>
+                        {% endfor %}
+                    </ul>
                     <a class="btn btn-secondary btn-xl" href="/">Retour à l'accueil</a>
                     <br><br>
                 </div>

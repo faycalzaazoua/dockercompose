@@ -8,7 +8,7 @@ app = FastAPI()
 
 templates = Jinja2Templates(directory="templates")
 
-async def connect():
+def connect():
     connection = None
     db_data = None
     try:
@@ -23,8 +23,8 @@ async def connect():
         # creation du curseur pour faciliter les opérations vers la bdd
         crsr = connection.cursor()
         # Requête à la bdd
-        await crsr.execute('SELECT name FROM utilisateur WHERE id=1')
-        db_data = crsr.fetchone()
+        crsr.execute('SELECT name FROM utilisateur')
+        db_data = crsr.fetchall()
         crsr.close()
 
         if db_data is None:
@@ -38,17 +38,19 @@ async def connect():
             print('Connexion à la base de données terminée.')
 
     return db_data
-
+print(connect())
+# Création de la première route qui sera l'Acceuil
 # def index():
 #     return { "message": f"Hello {env['MY_VARIABLE']} !"}
 @app.get("/")
-async def index(request: Request):
-    row = await connect()  # Appel de la fonction connect pour obtenir les données)
+def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "my_variable": env['name']})
 
 
+# Création de la deuxième route qui sera la page annexe
 # def second_route():
 #     return { "message": "Ceci est la deuxième route."}
 @app.get("/second-route")
 def index(request: Request):
-    return templates.TemplateResponse("annexe.html", {"request": request})
+    rows = connect()  # Appel de la fonction connect pour obtenir les données)
+    return templates.TemplateResponse("annexe.html", {"request": request, "datas": rows })
