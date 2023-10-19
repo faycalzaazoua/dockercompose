@@ -5,23 +5,25 @@ C'est une Application web Python qui utilise FastAPI et Jinja2 pour créer une i
 <img src="templates/img/architecture.jpg">
 
 # Détail projet
-Front (2 routes : Accueil, Annexe)
+* Front (2 routes : Accueil, Annexe)
 <img src="templates/img/route.png">
 
-Backend avec BDD dans un conteneur spécifique :
+* Backend avec BDD dans un conteneur spécifique :
   J'ai chois PostgreSQL, une base de données relationnelle qui offre une structure de données organisée et garantit la fiabilité grâce à la prise en charge des transactions ACID.
   Table : Utilisateur
 <img src="templates/img/bdd.png">
 
 
-Le projet contient docker-compose & dockerfile.
+* Le projet contient docker-compose & dockerfile.
 
-Image du projet sur DockerHub :
+* Image du projet sur DockerHub :
 https://hub.docker.com/repository/docker/harcus78/microservice/general
 
-Build sans erreur : 
+* Build sans erreur : 
 <img src="templates/img/build.png">
 
-Fichier de test bash : 
+* Fichier de test bash : 
 test/test_container.sh
+
+* J'ai automatisé un test simple dans mon docker-compose.yml qui utilise l'image curl pour effectuer une requête HTTP vers le service "web". Le test vérifie que le service "web" est opérationnel en retournant un code d'état HTTP valide.
 
