@@ -4,7 +4,7 @@ C'est une Application web Python qui utilise FastAPI et Jinja2 pour créer une i
 # Architecture
 <img src="templates/img/architecture.jpg">
 
-# More
+# Rendu Projet (Détail)
 Front (2 routes : Accueil, Annexe)
 <img src="templates/img/route.png">
 
