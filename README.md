@@ -11,10 +11,15 @@ Front (2 routes : Accueil, Annexe)
 Backend avec BDD dans un conteneur spécifique :
 <img src="templates/img/containerbdd.png">
 PostgreSQL, une base de données relationnelle, offre une structure de données organisée et garantit la fiabilité grâce à la prise en charge des transactions ACID.
+
+Table : Utilisateur
 <img src="templates/img/postgre.png">
 
 
 
 
-
+Image de la web App sur DockerHub :
 https://hub.docker.com/repository/docker/harcus78/microservice/general
+
+Build sans erreur : 
+
