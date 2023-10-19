@@ -22,4 +22,6 @@ https://hub.docker.com/repository/docker/harcus78/microservice/general
 Build sans erreur : 
 <img src="templates/img/build.png">
 
+Fichier de test bash : 
+test/test_container.sh
 
