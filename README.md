@@ -9,17 +9,17 @@ Front (2 routes : Accueil, Annexe)
 <img src="templates/img/route.png">
 
 Backend avec BDD dans un conteneur spécifique :
-<img src="templates/img/containerbdd.png">
-PostgreSQL, une base de données relationnelle, offre une structure de données organisée et garantit la fiabilité grâce à la prise en charge des transactions ACID.
-
-Table : Utilisateur
-<img src="templates/img/postgre.png">
+  J'ai chois PostgreSQL, une base de données relationnelle qui offre une structure de données organisée et garantit la fiabilité grâce à la prise en charge des transactions ACID.
+  Table : Utilisateur
+<img src="templates/img/bdd.png">
 
 
+Le projet contient docker-compose & dockerfile.
 
-
-Image de la web App sur DockerHub :
+Image du projet sur DockerHub :
 https://hub.docker.com/repository/docker/harcus78/microservice/general
 
 Build sans erreur : 
+<img src="templates/img/build.png">
+
 
