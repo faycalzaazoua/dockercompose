@@ -4,3 +4,17 @@ C'est une Application web Python qui utilise FastAPI et Jinja2 pour créer une i
 # Architecture
 <img src="templates/img/architecture.jpg">
 
+# More
+Front (2 routes : Accueil, Annexe)
+<img src="templates/img/route.png">
+
+Backend avec BDD dans un conteneur spécifique :
+<img src="templates/img/containerbdd.png">
+PostgreSQL, une base de données relationnelle, offre une structure de données organisée et garantit la fiabilité grâce à la prise en charge des transactions ACID.
+<img src="templates/img/postgre.png">
+
+
+
+
+
+https://hub.docker.com/repository/docker/harcus78/microservice/general
