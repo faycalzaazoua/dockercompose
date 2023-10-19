@@ -1,30 +1,30 @@
-version: '3'
+version: '3'  # Version du format Docker Compose utilisé
 
 services:
   web:
-    build: .
-    command: sh -c "uvicorn main:app --reload --port=8000 --host=0.0.0.0"
+    build: .  # Utilise le Dockerfile dans le répertoire courant pour construire l'image du service "web"
+    command: sh -c "uvicorn main:app --reload --port=8000 --host=0.0.0.0"  # Commande à exécuter pour démarrer le service "web"
     env_file:
-      - .env
+      - .env  # Charge les variables d'environnement à partir du fichier ".env"
     ports: 
-      - 8000:8000
+      - 8000:8000  # Redirige le port 8000 de l'hôte vers le port 8000 du conteneur
     volumes:
-      - .:/app
-  
+      - .:/app  # Montage du répertoire courant sur /app dans le conteneur
+
   database:
-    image: postgres
+    image: postgres  # Utilise l'image officielle PostgreSQL depuis Docker Hub
     ports:
-      - "5432:5432"
-    restart: always
+      - "5432:5432"  # Redirige le port 5432 de l'hôte vers le port 5432 du conteneur PostgreSQL
+    restart: always  # Redémarre le conteneur PostgreSQL en cas d'échec
     environment:
-      POSTGRES_USER: docker
+      POSTGRES_USER: docker  # Configuration des variables d'environnement pour PostgreSQL
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: microservices
 
   adminer:
-    image: adminer
-    restart: always
+    image: adminer  # Utilise l'image officielle Adminer depuis Docker Hub
+    restart: always  # Redémarre le conteneur Adminer en cas d'échec
     depends_on:
-      - database
+      - database  # Attend que le conteneur "database" soit opérationnel
     ports:
-      - 8080:8080
+      - 8080:8080  # Redirige le port 8080 de l'hôte vers le port 8080 du conteneur Adminer
