@@ -28,3 +28,8 @@ services:
       - database  # Attend que le conteneur "database" soit opérationnel
     ports:
       - 8080:8080  # Redirige le port 8080 de l'hôte vers le port 8080 du conteneur Adminer
+  test:
+      image: curlimages/curl  # Utilise une image curl pour effectuer un test HTTP
+      depends_on:
+        - web  # Attend que le service "web" soit opérationnel
+      command: ["curl", "-f", "http://web:8000"]  # Effectue une requête HTTP vers le service "web"
