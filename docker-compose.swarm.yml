@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  web:
+    deploy:
+      replicas: 3  # Définissez le nombre de réplicas souhaité
+      restart_policy:
+        condition: on-failure
+    ports :
+      - "8000:8000"
+    image: microservices-web:latest
+    command: sh -c "uvicorn main:app --host=0.0.0.0 --port=8000"
+    env_file:
+      - .env
+
+  database:
+    deploy:
+      replicas: 1
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: microservices
+
+  adminer:
+    deploy:
+      replicas: 1
+    image: adminer:latest
+    depends_on:
+      - database
+    ports:
+      - "8080:8080"
+
+  test:
+    deploy:
+      replicas: 1
+    image: curlimages/curl
+    depends_on:
+      - web
+    command: ["curl", "-f", "http://web:8000"]
+
+# a décommenter et utiliser
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   environment:
+  #     - GF_SECURITY_ADMIN_PASSWORD=admin  # Changez cela par un mot de passe plus sécurisé
+  #   ports:
+  #     - '3000:3000'
