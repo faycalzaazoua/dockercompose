@@ -11,6 +11,7 @@ services:
     volumes:
       - .:/app  # Montage du répertoire courant sur /app dans le conteneur
 
+
   database:
     image: postgres  # Utilise l'image officielle PostgreSQL depuis Docker Hub
     ports:
