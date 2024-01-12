@@ -11,7 +11,30 @@ docker exec "$container_name" $test_command
 
 # Vérifiez le code de retour de la commande
 if [ $? -eq 0 ]; then
-    echo "Le conteneur $container_name est fonctionnel."
+    echo "le conteneur $container_name est fonctionnel."
 else
-    echo "Le conteneur $container_name n'est pas fonctionnel."
+    echo "un des conteneur $container_name n'est pas fonctionnel."
+fi
+
+container_name="elasticsearch"
+
+docker exec "$container_name" $test_command
+
+# Vérifiez le code de retour de la commande
+if [ $? -eq 0 ]; then
+    echo "le conteneur $container_name est fonctionnel."
+else
+    echo "un des conteneur $container_name n'est pas fonctionnel."
+fi
+
+
+container_name="kibana"
+
+docker exec "$container_name" $test_command
+
+# Vérifiez le code de retour de la commande
+if [ $? -eq 0 ]; then
+    echo "le conteneur $container_name est fonctionnel."
+else
+    echo "un des conteneur $container_name n'est pas fonctionnel."
 fi

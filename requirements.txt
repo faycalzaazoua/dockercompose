@@ -2,4 +2,5 @@ fastapi
 uvicorn
 Jinja2==3.1.2
 psycopg2
-elasticsearch==7.0.0
+elasticsearch==7.15.1
+

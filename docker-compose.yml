@@ -10,7 +10,8 @@ services:
       - 8000:8000  # Redirige le port 8000 de l'hôte vers le port 8000 du conteneur
     volumes:
       - .:/app  # Montage du répertoire courant sur /app dans le conteneur
-
+    networks:
+      - dockerelk
 
   database:
     image: postgres  # Utilise l'image officielle PostgreSQL depuis Docker Hub
@@ -21,7 +22,8 @@ services:
       POSTGRES_USER: docker  # Configuration des variables d'environnement pour PostgreSQL
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: microservices
-
+    networks:
+      - dockerelk
   adminer:
     image: adminer  # Utilise l'image officielle Adminer depuis Docker Hub
     restart: always  # Redémarre le conteneur Adminer en cas d'échec
@@ -29,16 +31,96 @@ services:
       - database  # Attend que le conteneur "database" soit opérationnel
     ports:
       - 8080:8080  # Redirige le port 8080 de l'hôte vers le port 8080 du conteneur Adminer
-  test:
+  test-web:
       image: curlimages/curl  # Utilise une image curl pour effectuer un test HTTP
       depends_on:
         - web  # Attend que le service "web" soit opérationnel
       command: ["curl", "-f", "http://web:8000"]  # Effectue une requête HTTP vers le service "web"
 
+  test-elasticsearch:
+      image: curlimages/curl  # Utilise une image curl pour effectuer un test HTTP
+      depends_on:
+        - elasticsearch  # Attend que le service "web" soit opérationnel
+      command: ["curl", "-f", "http://web:9200"]  # Effectue une requête HTTP vers le service "web"
+  
+  test-kibana:
+      image: curlimages/curl  # Utilise une image curl pour effectuer un test HTTP
+      depends_on:
+        - elasticsearch  # Attend que le service "web" soit opérationnel
+      command: ["curl", "-f", "http://web:5601"]  # Effectue une requête HTTP vers le service "web"
+
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.3
+    container_name: elasticsearch
+    restart: always
     environment:
+      - xpack.security.enabled=false
       - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - ./elas1:/usr/share/elasticsearch/data
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - dockerelk
+  kibana:
+  #serivice kibana 
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:8.11.3
+    restart: always
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    networks:
+      - dockerelk
+
+  metricbeat:
+    image: docker.elastic.co/beats/metricbeat:7.6.2
+    container_name: metricbeat
+    user: root
+    command: /bin/sh -c "chmod go-w /usr/share/metricbeat/metricbeat.yml && metricbeat -e"
+    volumes:
+      - ./metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - dockerelk
+    depends_on:
+      - elasticsearch
+    healthcheck:
+      test: ["CMD-SHELL", "metricbeat test config -c /usr/share/metricbeat/metricbeat.yml"]
+      interval: 2s
+
+  logstash:
+    image: logstash
+    container_name: logstash
+    hostname: logstash
+    ports:
+      - 9600:9600
+      - 5044:5044
+      - 8089:8089
+    restart: always
+    links:
+      - elasticsearch:elasticsearch
+    depends_on:
+      - elasticsearch
+    networks:
+      - dockerelk
+    volumes:
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9600"]
+      # interval: 2s`
+networks:
+  dockerelk:
+    driver: bridge
