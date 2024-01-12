@@ -3,6 +3,7 @@ C'est une Application web Python qui utilise FastAPI et Jinja2 pour créer une i
 
 # Architecture
 <img src="templates/img/architecture.jpg">
+<img src="templates/img/architecture2.png">
 
 # Détail projet
 * Front (2 routes : Accueil, Annexe)
@@ -26,4 +27,12 @@ https://hub.docker.com/repository/docker/harcus78/microservice/general
 test/test_container.sh
 
 * J'ai automatisé un test simple dans mon docker-compose.yml qui utilise l'image curl pour effectuer une requête HTTP vers le service "web". Le test vérifie que le service "web" est opérationnel en retournant un code d'état HTTP valide.
+
+
+# Lancement du projet
+* Lancer le projet en lancant la commande : 
+    docker-compose up --build <br>
+    ou <br>
+    docker-compose up --build -d pour lancer le projet en arrière blanc 
+
 
