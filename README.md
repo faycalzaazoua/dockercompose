@@ -28,6 +28,9 @@ test/test_container.sh
 
 * J'ai automatisé un test simple dans mon docker-compose.yml qui utilise l'image curl pour effectuer une requête HTTP vers le service "web". Le test vérifie que le service "web" est opérationnel en retournant un code d'état HTTP valide.
 
+# Dashboard Kibana
+ <img src="templates/img/kibana_dashboard.png">
+
 
 # Lancement du projet
 * Lancer le projet en lancant la commande : 
