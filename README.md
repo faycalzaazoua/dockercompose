@@ -3,7 +3,7 @@ C'est une Application web Python qui utilise FastAPI et Jinja2 pour créer une i
 
 # Architecture
 <img src="templates/img/architecture.jpg">
-<img src="templates/img/architecture2.png">
+<img src="templates/img/architecture2.jpg">
 
 # Détail projet
 * Front (2 routes : Accueil, Annexe)
