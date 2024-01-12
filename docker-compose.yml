@@ -34,11 +34,3 @@ services:
       depends_on:
         - web  # Attend que le service "web" soit opérationnel
       command: ["curl", "-f", "http://web:8000"]  # Effectue une requête HTTP vers le service "web"
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
-    environment:
-      - discovery.type=single-node
-    ports:
-      - "9200:9200"
-      - "9300:9300"

@@ -1,7 +1,6 @@
 from fastapi import FastAPI, Request
 from starlette.templating import Jinja2Templates
 import psycopg2
-from elasticsearch import Elasticsearch
 import uvicorn
 from os import environ as env
 
@@ -15,9 +14,6 @@ db_params = {
     'user': 'docker',
     'password': 'docker',
 }
-
-# Paramètres de connexion à Elasticsearch
-es = Elasticsearch(["http://elasticsearch:9200"])
 
 @app.get("/")
 def index(request: Request):
@@ -48,14 +44,3 @@ def second_route(request: Request):
     except Exception as e:
         return f"Erreur lors de la connexion à la base de données PostgreSQL : {e}"
 
-@app.get("/search")
-def search(request: Request, query: str):
-    try:
-        # Effectuer une recherche dans Elasticsearch
-        result = es.search(index="votre_index", body={"query": {"match": {"votre_champ": query}}})
-
-        # Rendre le modèle HTML avec les résultats de la recherche
-        return templates.TemplateResponse("search.html", {"request": request, "result": result})
-
-    except Exception as e:
-        return f"Erreur lors de la recherche dans Elasticsearch : {e}"
